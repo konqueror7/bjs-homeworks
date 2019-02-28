@@ -12,7 +12,7 @@ function calculateQuadraticEquation() {
 
 function getResult(a, b, c) {
   //Включение режима совместимости ES-6
-  'use strict'
+  'use strict';
   //Объявление и вычисление дискриминанта квадратного трехчлена
   let discriminantSquareTriple = (b**2) - (4*a*c);
   let x;
@@ -91,7 +91,7 @@ function getAverageMark(marks){
     if (marks.length > 5) {
       console.log(`В массиве ${marks.length} оценок`);
     }
-    
+
     //Перенос первых пяти оценок в новый массив
     let firstFiveMarks = marks.slice(0, 5);
     //Объявление средней арифметической оценки
