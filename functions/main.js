@@ -11,6 +11,7 @@ showSolutionsMessage( 2, 4, 2 )
 */
 function showSolutionsMessage( a, b, c ) {
   let result = getSolutions(a, b, c);
+
 //Функция, вычисляющая корни квадратного уравнени
   function getSolutions(a, b, c) {
     let D = b**2 - 4*a*c;
@@ -36,7 +37,9 @@ function showSolutionsMessage( a, b, c ) {
       }
     }
   }
-  console.log(`Вычисляем корни квадратного уравнения ${a}x² + ${b}x + ${c}`)
+
+  console.log(`Вычисляем корни квадратного уравнения ${a}x² + ${b}x + ${c}`);
+
   if (result.D < 0) {
     console.log('Уравнение не имеет вещественных корней');
   }
@@ -76,6 +79,7 @@ function getPersonData(secretData) {
       return 'Эмильо';
     }
   }
+
   return {
     firstName: decodeFullName(secretData.aaa),
     lastName: decodeFullName(secretData.bbb)
@@ -110,9 +114,7 @@ function getAverageScore(Data) {
       return counter;
   }
 
-  //let knowledgeCount = knowledgeCounter(0);
-
-//Расчет средней арифметической оценки по одному из предметов
+  //Расчет средней арифметической оценки по одному из предметов
   let countAverageMark = function(marksArray) {
     let sumMarks = 0;
     for (let mark of marksArray) {
@@ -130,11 +132,9 @@ function getAverageScore(Data) {
     return sumCount;
   }
 
-  //let generalSumMark = generalSumMarkCounter(0);
-
   //Вычисление средней арифметической оценки по всем предметам
-  //let generalAverage = generalSumMark / knowledgeCount;
   let generalAverage = countGeneralSumMark(0) / countKnowledge(0);
+
   //Создание свойства
   averageScore.average = generalAverage;
 
