@@ -113,6 +113,7 @@ function getAverageScore(Data) {
     return sumMarks / marksArray.length;
   };
 
+  //Здесь необходимо написать функцию вычисления общей суммы оценок
   for (let marksSchoolKnowledge in Data) {
     averageScore[marksSchoolKnowledge] = averageMark(Data[marksSchoolKnowledge]);
     generalSumMark += averageScore[marksSchoolKnowledge];
