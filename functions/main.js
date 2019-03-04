@@ -1,13 +1,18 @@
 'use strict';
 //Решение к задачам домашнего задания по теме "Функции и объекты"
+
 //Задача №1
 showSolutionsMessage( 1, 2, 3 )
 showSolutionsMessage( 7, 20, -3 )
 showSolutionsMessage( 2, 4, 2 )
 
+/*Функция, показывающая результаты вычисления
+корней квадратного уравнения
+*/
 function showSolutionsMessage( a, b, c ) {
   let result = getSolutions(a, b, c);
 
+//Функция, вычисляющая корни квадратного уравнени
   function getSolutions(a, b, c) {
     let D = b**2 - 4*a*c;
     if (D < 0) {
@@ -32,7 +37,9 @@ function showSolutionsMessage( a, b, c ) {
       }
     }
   }
-  console.log(`Вычисляем корни квадратного уравнения ${a}x² + ${b}x + ${c}`)
+
+  console.log(`Вычисляем корни квадратного уравнения ${a}x² + ${b}x + ${c}`);
+
   if (result.D < 0) {
     console.log('Уравнение не имеет вещественных корней');
   }
@@ -62,8 +69,9 @@ console.log(getPersonData({
   bbb: 1
 }));
 
+//Функция, декодирующая зашифрованное содержимое секретных данных
 function getPersonData(secretData) {
-  function decodingFullName(secretDataProperty) {
+  function decodeFullName(secretDataProperty) {
     if (secretDataProperty === 0) {
       return 'Родриго';
     }
@@ -71,9 +79,10 @@ function getPersonData(secretData) {
       return 'Эмильо';
     }
   }
+
   return {
-    firstName: decodingFullName(secretData.aaa),
-    lastName: decodingFullName(secretData.bbb)
+    firstName: decodeFullName(secretData.aaa),
+    lastName: decodeFullName(secretData.bbb)
   }
 }
 
@@ -90,22 +99,23 @@ console.log(getAverageScore({
   french: [4, 4]
 }));
 
+/*Функция вычисляющая средние арифметические оценки
+по каждому школьному предмету
+*/
 function getAverageScore(Data) {
-  let averageScore = new Object;
+//Создание объекта, содержащего средние арифметические оценки
+  let averageScore = {};
 
-  let generalAverage = 0;
-  let generalSumMark = 0;
-
-  function knowledgeCounter( start = 0 ) {
+// Функция подсчета количества школьных предметов, по которым есть оценки
+  function countKnowledge (counter = 0) {
     for (let schoolKnowledge in Data) {
-      start++;
+      counter++;
     }
-      return start;
+      return counter;
   }
 
-  let knowledgeCount = knowledgeCounter( 0 );
-
-  let averageMark = function(marksArray) {
+  //Расчет средней арифметической оценки по одному из предметов
+  let countAverageMark = function(marksArray) {
     let sumMarks = 0;
     for (let mark of marksArray) {
       sumMarks += mark;
@@ -113,12 +123,19 @@ function getAverageScore(Data) {
     return sumMarks / marksArray.length;
   };
 
-  for (let marksSchoolKnowledge in Data) {
-    averageScore[marksSchoolKnowledge] = averageMark(Data[marksSchoolKnowledge]);
-    generalSumMark += averageScore[marksSchoolKnowledge];
+  //Функция вычисления общей суммы оценок по всем предметам
+  function countGeneralSumMark(sumCount = 0) {
+    for (let marksSchoolKnowledge in Data) {
+      averageScore[marksSchoolKnowledge] = countAverageMark(Data[marksSchoolKnowledge]);
+      sumCount += averageScore[marksSchoolKnowledge];
+    }
+    return sumCount;
   }
 
-  generalAverage = generalSumMark / knowledgeCount;
+  //Вычисление средней арифметической оценки по всем предметам
+  let generalAverage = countGeneralSumMark(0) / countKnowledge(0);
+
+  //Создание свойства
   averageScore.average = generalAverage;
 
   return averageScore;
