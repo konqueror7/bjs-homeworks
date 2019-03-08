@@ -30,7 +30,6 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
   let loanAmount = parseInt(amount);
   let monthlyPayment = (loanAmount * (percentFraction + percentFraction / (((1 + percentFraction)**repaymentPeriod) - 1))).toFixed(2);
   totalAmount = (monthlyPayment * repaymentPeriod - downPayment).toFixed(2);
-  // repaymentPeriod = currentDate.getFullYear();
 
   console.log(`
     Текушая дата ${currentDate} \n
@@ -40,18 +39,28 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
     Ежемесячный платеж ${monthlyPayment} \n
     Общая сумма ${totalAmount}
     `);
-    // код для задачи №1 писать здесь
+
     return totalAmount;
 }
 
 function sayHello() {
-    let name = window.personName.value;
-    let greeting = getGreeting(name);
-    let span = window.helloResult;
-    span.textContent = greeting;
+  let name = window.personName.value;
+  let greeting = getGreeting(name);
+  let span = window.helloResult;
+  span.textContent = greeting;
 }
 
 function getGreeting(name) {
-    // код для задачи №2 писать здесь
-    //return greeting;
+  let userName;
+
+  if (!name || name.valueOf() == 'null' || name.valueOf() == 'undefined') {
+    userName = 'Аноним';
+  }
+  else {
+    userName = name;
+  }
+
+  greeting = `Привет, мир! Меня зовут ${userName}.`;
+  console.log(greeting);
+  return greeting;
 }
