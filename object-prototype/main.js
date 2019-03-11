@@ -8,22 +8,22 @@ function initCheckBirthday() {
 
 function checkBirthday(birthday) {
   //Определяем текущую дату в виде количества милисекунд, прошедших с 00:00:00 01-01-1970 (UTC)
-  let now = Date.now();
+  const now = Date.now();
   //Создание переменной содержащей результат преобразования даты рождения в формат ISO 86001
-  let dateOfBirth = new Date(birthday);
+  const dateOfBirth = new Date(birthday);
   // перезапись значения переменной birthday в виде количества милисекунд
   birthday = +dateOfBirth;
   //Вычисление возраста в милисекундах
-  let diff = now - birthday;
+  const diff = now - birthday;
   /*Каленарный год немного короче солнечного. в течение 4-х лет накапливается
   ошибка, которая компенсируется добавлением дополнительного дня в феврале.
   На каждый год приходится 1/4 суток или 2160000 мс. Поэтому за число милисекунд
   в году следует принять результат выражения 24 * 60 * 60 * 1000 * 365 + 2160000
   */
-  let durationYearMilliseconds = 24 * 60 * 60 * 1000 *365 + 2160000;
+  const durationYearMilliseconds = 24 * 60 * 60 * 1000 *365 + 2160000;
 
   //Вычисление возраста в годах с дробной частью
-  let age = diff / durationYearMilliseconds;
+  const age = diff / durationYearMilliseconds;
 
   console.log(`
     Текущая дата ${now} \n
@@ -48,7 +48,7 @@ function initPrintAnimalSound() {
 
 function getAnimalSound(animal) {
   //Создание переменной, инициализированной значением свойства sound объекта animal
-  let sound = animal.sound;
+  const sound = animal.sound;
   console.log(`Звук ${sound}`);
   //Передача в константу result результата проверки значения переменной sound
   return  sound.valueOf() == 'undefined' ? null : sound;
@@ -71,7 +71,7 @@ function getAverageMark(marks) {
   let totalRating = 0;
 
   //Вычисление общего количества баллов ученика
-  for (mark of marks) {
+  for (let mark of marks) {
     /*Добавление к значению переменной результата
     преобразования строкового значения элемента индексного массива
     */
@@ -79,7 +79,7 @@ function getAverageMark(marks) {
   }
 
   //Вычисление среднего арифметического значения оценки и округление до ближайшего целого числа
-  let roundedAverage = Math.round(totalRating / marks.length)
+  const roundedAverage = Math.round(totalRating / marks.length)
 
   //Возврат во внешнее окружение округленного значения среднего арифметического
   return roundedAverage;
