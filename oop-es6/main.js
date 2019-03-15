@@ -18,6 +18,8 @@ class StudentLog {
   addGrade(grade, subject) {
     if (parseInt(grade) !== parseInt(grade) || parseInt(grade) > 5) {
       console.log(`Вы пытались поставить оценку ${grade} по предмету ${subject}.\nМожно вводить только целое число от 1 до 5`);
+      if (subject in this.gradesSubjects) return this.gradesSubjects[subject].length
+      else return 0;
     }
     else {
       if (subject in this.gradesSubjects) {
@@ -26,8 +28,8 @@ class StudentLog {
       }
       this.gradesSubjects[subject] = [];
       this.gradesSubjects[subject].push(parseInt(grade));
+      return this.gradesSubjects[subject].length;
     }
-    return this.gradesSubjects[subject].length;
     // const gradesSubject = this.search(subject);
 
     // if (parseInt(grade) !== parseInt(grade) || parseInt(grade) > 5) {
@@ -76,8 +78,8 @@ class StudentLog {
     let totalAverage = 0;
     let gradesCount = 0;
 
-    for (let gradesSubject of this.gradesSubjects) {
-      gradesSubject.grades.forEach(function(item) {
+    for (let subject of this.gradesSubjects) {
+      subject.forEach(function(item) {
         totalAverage += item;
         gradesCount++;
       });
@@ -119,10 +121,10 @@ console.log(log.addGrade('5', 'geography'));
 console.log(log.addGrade('5', 'geography'));
 console.log(log.addGrade('3', 'ariphmetic'));
 console.log(log.addGrade('4', 'ariphmetic'));
-console.log(log.addGrade('24', 'math'));
+console.log(log.addGrade('24', 'ariphmetic'));
 // console.log(log.addGrade('ОТлично!', 'Арифметика'));
 console.log(log.getAverageBySubject('ariphmetic'));
-// console.log(log.getTotalAverage());
+console.log(log.getTotalAverage());
 // console.log(log.addGrade('25', 'Тригонометрия'));
 // console.log(log.getGrades());
 console.log(log);
