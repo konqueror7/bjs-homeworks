@@ -119,7 +119,7 @@ console.log(log.addGrade('4', 'Арифметика'));
 // console.log(log.addGrade('ОТлично!', 'Арифметика'));
 // console.log(log.getAverageBySubject('Арифметика'));
 // console.log(log.getGradesBySubject('Арифметика'));
-// console.log(log.getTotalAverage());
+console.log(log.getTotalAverage());
 // console.log(log.addGrade('25', 'Тригонометрия'));
 console.log(log.getGrades());
 console.log(log);
