@@ -16,49 +16,60 @@ class StudentLog {
   }
 
   addGrade(grade, subject) {
-    const gradesSubject = this.search(subject);
-
     if (parseInt(grade) !== parseInt(grade) || parseInt(grade) > 5) {
       console.log(`Вы пытались поставить оценку ${grade} по предмету ${subject}.\nМожно вводить только целое число от 1 до 5`);
     }
     else {
-      if (gradesSubject) {
-        gradesSubject.grades.push(parseInt(grade));
-        return gradesSubject.grades.length;
+      if (subject in this.gradesSubjects) {
+        this.gradesSubjects[subject].push(parseInt(grade));
+        return this.gradesSubjects[subject].length;
       }
-
-      this.gradesSubjects.push({subject, grades: [parseInt(grade)]});
+      this.gradesSubjects[subject] = [];
+      this.gradesSubjects[subject].push(parseInt(grade));
     }
+    return this.gradesSubjects[subject].length;
+    // const gradesSubject = this.search(subject);
 
-    return  this.search(subject).grades.length;
     // if (parseInt(grade) !== parseInt(grade) || parseInt(grade) > 5) {
     //   console.log(`Вы пытались поставить оценку ${grade} по предмету ${subject}.\nМожно вводить только целое число от 1 до 5`);
     // }
     // else {
     //   if (subject in this.gradesSubjects) {
-    //     this.gradesSubjects[subject].push(grade);
+    //     this.gradesSubjects.[subject].push(parseInt(grade));
+    //     return this.gradesSubjects.[subject].length;
     //   }
-    //   else {
-    //     this.gradesSubjects[subject] = [];
-    //     this.gradesSubjects[subject].push(grade);
-    //   }
+    //
+    //   this.gradesSubjects.push({[subject]: parseInt(grade)});
     // }
-    // return this.gradesSubjects[subject].length;
-    // return this.gradesSubjects.[subject].[grades].length;
+    //
+    // return  this.gradesSubjects.[subject].length;
+  //   if (parseInt(grade) !== parseInt(grade) || parseInt(grade) > 5) {
+  //     console.log(`Вы пытались поставить оценку ${grade} по предмету ${subject}.\nМожно вводить только целое число от 1 до 5`);
+  //   }
+  //   else {
+  //     if (subject in this.gradesSubjects) {
+  //       this.gradesSubjects[subject].push(grade);
+  //     }
+  //     else {
+  //       this.gradesSubjects[subject] = [];
+  //       this.gradesSubjects[subject].push(grade);
+  //     }
+  //   }
+  //   return this.gradesSubjects[subject].length;
   }
 
   getAverageBySubject(subject) {
-    const gradesSubject = this.search(subject);
-    if (!gradesSubject) {
+    // const gradesSubject = this.search(subject);
+    if (!this.gradesSubjects[subject]) {
       return 0;
     }
 
     let sum = 0;
-    for (let rating of gradesSubject.grades) {
-      sum += rating;
+    for (let i = 0; i < this.gradesSubjects[subject].length; i++) {
+      sum += this.gradesSubjects[subject][i];
     }
 
-    return sum / gradesSubject.grades.length;
+    return sum / this.gradesSubjects[subject].length;
   }
 
   getTotalAverage() {
@@ -104,13 +115,13 @@ log.getName();
 // log.addGrade('5', 'География');
 // log.addGrade('3', 'География');
 // log.addGrade('4', 'Геометрия');
-console.log(log.addGrade('5', 'Geography'));
-console.log(log.addGrade('5', 'Geography'));
-console.log(log.addGrade('3', 'Ariphmetic'));
-console.log(log.addGrade('4', 'Ariphmetic'));
-// console.log(log.addGrade('24', 'Арифметика'));
+console.log(log.addGrade('5', 'geography'));
+console.log(log.addGrade('5', 'geography'));
+console.log(log.addGrade('3', 'ariphmetic'));
+console.log(log.addGrade('4', 'ariphmetic'));
+console.log(log.addGrade('24', 'math'));
 // console.log(log.addGrade('ОТлично!', 'Арифметика'));
-// console.log(log.getAverageBySubject('Ariphmetic'));
+console.log(log.getAverageBySubject('ariphmetic'));
 // console.log(log.getTotalAverage());
 // console.log(log.addGrade('25', 'Тригонометрия'));
 // console.log(log.getGrades());
