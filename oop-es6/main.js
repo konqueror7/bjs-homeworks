@@ -2,7 +2,7 @@
 class StudentLog {
   constructor(name) {
     this.name = name;
-    this.gradesSubjects = [];
+    this.gradesSubjects = {};
   }
 
   getName() {
@@ -11,7 +11,7 @@ class StudentLog {
 
   search(subject) {
     return this.gradesSubjects.find(function(gradesSubject) {
-      return gradesSubject === subject;
+      return gradesSubject.subject === subject;
     });
   }
 
@@ -76,17 +76,11 @@ class StudentLog {
 
   getTotalAverage() {
     let totalAverage = 0;
-    let gradesCount = 0;
-
-
-
-    if (totalAverage === 0) {
-      return 0;
+    let totalCount = 0;
+    for (var subject in this.gradesSubjects) {
+      totalCount++;
     }
-    else {
-      return totalAverage / gradesCount;
-    }
-
+    return totalAverage / totalCount;
   }
 
   getGradesBySubject(subject) {
