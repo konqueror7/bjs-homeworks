@@ -78,11 +78,13 @@ class StudentLog {
     let totalAverage = 0;
     let gradesCount = 0;
 
-    for (let subject of this.gradesSubjects) {
-      subject.forEach(function(item) {
-        totalAverage += item;
-        gradesCount++;
-      });
+    for (let gradesSubject of this.gradesSubjects) {
+      for (let subject of gradesSubject) {
+        subject.forEach(function(item) {
+          totalAverage += item;
+          gradesCount++;
+        });
+      }
     }
 
     if (totalAverage === 0) {
