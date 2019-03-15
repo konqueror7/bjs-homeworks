@@ -90,7 +90,14 @@ class StudentLog {
   }
 
   getGrades() {
-
+    let allGrades = [];
+    for (let gradesSubject of this.gradesSubjects) {
+      allGrades.push({[gradesSubject.subject]: gradesSubject.grades});
+    }
+    if (!allGrades) {
+      return allGrades = [];
+    }
+    return allGrades;
   }
 
 }
@@ -104,15 +111,15 @@ log.getName();
 // log.addGrade('5', 'География');
 // log.addGrade('3', 'География');
 // log.addGrade('4', 'Геометрия');
-console.log(log.addGrade('5', 'География'));
-console.log(log.addGrade('5', 'География'));
-console.log(log.addGrade('3', 'Арифметика'));
-console.log(log.addGrade('4', 'Арифметика'));
+// console.log(log.addGrade('5', 'География'));
+// console.log(log.addGrade('5', 'География'));
+// console.log(log.addGrade('3', 'Арифметика'));
+// console.log(log.addGrade('4', 'Арифметика'));
 // console.log(log.addGrade('24', 'Арифметика'));
 // console.log(log.addGrade('ОТлично!', 'Арифметика'));
-console.log(log.getAverageBySubject('Арифметика'));
-console.log(log.getGradesBySubject('Арифметика'));
-console.log(log.getTotalAverage());
+// console.log(log.getAverageBySubject('Арифметика'));
+// console.log(log.getGradesBySubject('Арифметика'));
+// console.log(log.getTotalAverage());
 // console.log(log.addGrade('25', 'Тригонометрия'));
-// console.log(log.getGrades());
+console.log(log.getGrades());
 console.log(log);
