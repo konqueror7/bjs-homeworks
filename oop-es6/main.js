@@ -1,16 +1,49 @@
 'use strict'
 class Weapon {
-  constructor(name, attack, durability, range) {
-    this.name = name;
-    this.attack = attack;
-    this.durability = durability;
-    this.initDurability = durability;
-    this.range = range;
+  constructor(options = {}) {
+      this.name = options.name;
+      this.attack = options.attack;
+      this.durability = options.durability;
+      this.initDurability = options.durability;
+      this.range = options.range;
   }
+  // constructor(options = {}) {
+  //   const {
+  //     name = name,
+  //     attack = attack,
+  //     durability = durability,
+  //     initDurability = durability,
+  //     range = range
+  //     } = options;
+  //   Object.assign(this, {
+  //     name,
+  //     attack,
+  //     durability,
+  //     initDurability,
+  //     range
+  //   });
+  // }
+  // constructor(name, attack, durability, range) {
+  //   this.name = name;
+  //   this.attack = attack;
+  //   this.durability = durability;
+  //   this.initDurability = durability;
+  //   this.range = range;
+  // }
 
   takeDamage(damage) {
-    let longevity = this.durability - damage;
-    longevity < 0 ? this.durability = 0 : this.durability = longevity;
+    if (this.durability < damage) {
+      this.durability = 0;
+    }
+    else if (this.durability > damage) {
+      this.durability -= damage;
+    }
+    else if (this.durability === Infinity) {
+      return;
+    }
+    // longevity < 0 ? this.durability = 0 : this.durability = longevity;
+    // let longevity = this.durability - damage;
+    // longevity < 0 ? this.durability = 0 : this.durability = longevity;
   }
 
   getDamage() {
@@ -23,71 +56,253 @@ class Weapon {
   }
 
   isBroken() {
-   if (this.durability > 0) {return false} else {return true}
+    return this.durability === 0;
+   // if (this.durability > 0) {return false} else {return true}
   }
 }
 
 
 class Arm extends Weapon {
-  constructor(name = 'Рука', attack = 1, durability = Infinity, range = 1) {
-    super(name, attack, durability, range);
+  constructor(options = {}) {
+    super(options);
+      this.name = options.name || 'Рука';
+      this.attack = options.attack || 1;
+      this.durability = Infinity;
+      this.initDurability = this.durability;
+      // this.durability = options.durability || Infinity;
+      // this.initDurability = options.durability || this.durability;
+      this.range = options.range || 1;
   }
 }
+// class Arm extends Weapon {
+//   constructor(options = {name: 'Рука', attack: 1, durability: Infinity, range: 1}) {
+//     super(options);
+//     const {
+//       name,
+//       attack,
+//       durability,
+//       range
+//     } = options;
+//     Object.assign(this, {
+//       name,
+//       attack,
+//       durability,
+//       range
+//     });
+//   }
+// }
+// class Arm extends Weapon {
+//   constructor(name = 'Рука', attack = 1, durability = Infinity, range = 1) {
+//     super(name, attack, durability, range);
+//   }
+// }
 
 class Bow extends Weapon {
-  constructor(name = 'Лук', attack = 10, durability = 200, range = 3) {
-    super(name, attack, durability, range);
+  constructor(options = {}) {
+    super(options);
+      this.name = options.name || 'Лук';
+      this.attack = options.attack || 10;
+      this.durability = options.durability || 200;
+      this.initDurability = options.durability || this.durability;
+      this.range = options.range || 3;
   }
+  // constructor(options = {name: 'Лук', attack: 10, durability: 200, range: 3}) {
+  //   super(options);
+  //   const {
+  //     name,
+  //     attack,
+  //     durability,
+  //     range
+  //   } = options;
+  //   Object.assign(this, {
+  //     name,
+  //     attack,
+  //     durability,
+  //     range
+  //   });
+  // }
 }
+// class Bow extends Weapon {
+//   constructor(name = 'Лук', attack = 10, durability = 200, range = 3) {
+//     super(name, attack, durability, range);
+//   }
+// }
 
 class LongBow extends Bow {
-  constructor(name = 'Длинный лук', attack = 15, durability, range = 4) {
-    super(name, attack, durability, range);
+  constructor(options = {}, durability) {
+    super(options, durability);
+      this.name = options.name || 'Длинный лук';
+      this.attack = options.attack || 15;
+      this.range = options.range || 4;
   }
+  // constructor(options = {name: 'Длинный лук', attack: 15, range: 4}, durability) {
+  //   super(options, durability);
+  //   const {
+  //     name,
+  //     attack,
+  //     range
+  //   } = options;
+  //   Object.assign(this, {
+  //     name,
+  //     attack,
+  //     range
+  //   });
+  // }
 }
+
+// class LongBow extends Bow {
+//   constructor(name = 'Длинный лук', attack = 15, durability, range = 4) {
+//     super(name, attack, durability, range);
+//   }
+// }
 
 class Sword extends Weapon {
-  constructor(name = 'Меч', attack = 25, durability = 500, range = 1) {
-    super(name, attack, durability, range);
+  constructor(options = {name: 'Меч', attack: 25, durability: 500, range: 1}) {
+    super(options);
+      this.name = options.name || 'Меч';
+      this.attack = options.attack || 25;
+      this.durability = options.durability || 500;
+      this.range = options.range || 1;
   }
+  // constructor(options = {name: 'Меч', attack: 25, durability: 500, range: 1}) {
+  //   super(options);
+  //   const {
+  //     name,
+  //     attack,
+  //     durability,
+  //     range
+  //   } = options;
+  //   Object.assign(this, {
+  //     name,
+  //     attack,
+  //     durability,
+  //     range
+  //   });
+  // }
 }
+// class Sword extends Weapon {
+//   constructor(name = 'Меч', attack = 25, durability = 500, range = 1) {
+//     super(name, attack, durability, range);
+//   }
+// }
 
 class Axe extends Sword {
-  constructor(name = 'Секира', attack = 27, durability = 800, range) {
-    super(name, attack, durability, range);
+  constructor(options = {name: 'Секира', attack: 27, durability: 800}, range) {
+    super(options, range);
+      this.name = options.name || 'Секира';
+      this.attack = options.attack || 27;
+      this.durability = options.durability || 800;
   }
+  // constructor(options = {name: 'Секира', attack: 27, durability: 800}, range) {
+  //   super(options, range);
+  //   const {
+  //     name,
+  //     attack,
+  //     durability
+  //   } = options;
+  //   Object.assign(this, {
+  //     name,
+  //     attack,
+  //     durability
+  //   });
+  // }
 }
+
+// class Axe extends Sword {
+//   constructor(name = 'Секира', attack = 27, durability = 800, range) {
+//     super(name, attack, durability, range);
+//   }
+// }
 
 class Knife extends Weapon {
-  constructor(name = 'Нож', attack = 5, durability = 300, range = 1) {
-    super(name, attack, durability, range);
+  constructor(options = {}) {
+    super(options);
+      this.name = options.name || 'Нож';
+      this.attack = options.attack || 5;
+      this.durability = options.durability || 300;
+      this.initDurability = options.durability || this.durability;
+      this.range = options.range || 1;
   }
+  // constructor(options = {name: 'Нож', attack: 5, durability: 300, range: 1}) {
+  //   super(options);
+  //   const {
+  //     name,
+  //     attack,
+  //     durability,
+  //     range
+  //   } = options;
+  //   Object.assign(this, {
+  //     name,
+  //     attack,
+  //     durability,
+  //     range
+  //   });
+  // }
 }
+// class Knife extends Weapon {
+//   constructor(name = 'Нож', attack = 5, durability = 300, range = 1) {
+//     super(name, attack, durability, range);
+//   }
+// }
 
 class Staff extends Weapon {
-  constructor(name = 'Посох', attack = 8, durability = 300, range = 2) {
-    super(name, attack, durability, range);
+  constructor(options = {}) {
+    super(options);
+    this.name = options.name || 'Посох';
+    this.attack = options.attack || 8;
+    this.durability = options.durability || 300;
+    this.initDurability = options.durability || this.durability;
+    this.range = options.range || 2;
   }
 }
+// class Staff extends Weapon {
+//   constructor(name = 'Посох', attack = 8, durability = 300, range = 2) {
+//     super(name, attack, durability, range);
+//   }
+// }
 
 class StormStaff extends Staff {
-  constructor(name = 'Посох Бури', attack = 10, durability, range = 3) {
-    super(name, attack, durability, range);
+  constructor(options = {}, durability) {
+    super(options, durability);
+    this.name = options.name || 'Посох Бури';
+    this.attack = options.attack || 10;
+    this.range = options.range || 3;
   }
 }
+// class StormStaff extends Staff {
+//   constructor(name = 'Посох Бури', attack = 10, durability, range = 3) {
+//     super(name, attack, durability, range);
+//   }
+// }
 
 class Player {
-  constructor() {
-    this.life = 100;
-    this.magic = 20;
-    this.speed = 1;
-    this.attack = 10;
-    this.agility = 5;
-    this.luck = 10;
-    this.description = 'Игрок';
-    this.weapon = new Arm;
-    this.name;
-    this.position = 0; //HW #3
+  constructor(options = {}) {
+    const {
+      life = 100,
+      magic = 20,
+      speed = 1,
+      attack = 10,
+      agility = 5,
+      luck = 10,
+      description = 'Игрок',
+      weapon = new Arm,
+      name,
+      position = 0
+    } = options;
+    Object.assign(this, {
+      life,
+      initLife: life,
+      magic,
+      initMagic: magic,
+      speed,
+      attack,
+      agility,
+      luck,
+      description,
+      weapon,
+      name,
+      position
+    });
   }
 
   getLuck() {
@@ -115,7 +330,12 @@ class Player {
   }
 
   isDead() {
-    return this.life === 0;
+    if (this.life === 0) {
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 
   //Homework #3 "RPG-battle" metods
@@ -186,28 +406,99 @@ class Player {
 
   tryAttack(enemy) {
     let distance;
+
+    console.log(`Позиция ${this.name} - ${this.position}, позиция ${enemy.name} - ${enemy.position}`);
+
     if (this.position > enemy.position) {
       distance = this.position - enemy.position;
     }
     else if (this.position < enemy.position) {
       distance = enemy.position - this.position;
     }
-    console.log(distance);
+    else if (this.position === enemy.position) {
+      distance = 0;
+    }
+
+    console.log(`Ранг оружия ${this.weapon.range}, дистанция ${distance}`);
+
+    if (this.weapon.range < distance) {
+      return;
+    }
+    // else {
+      this.weapon.takeDamage(10 * this.getLuck());
+      enemy.takeAttack(this.getDamage(distance));
+    // }
+
+    if (distance === 0) {
+      enemy.moveRight(1);
+      enemy.takeAttack(this.getDamage(distance + 1) * 2);
+    }
+  }
+
+  chooseEnemy(players) {
+    let enemy;
+    let enemyLife = Infinity;
+    let meNumb = players.indexOf(this);
+    let i;
+    for (i = 0; i < players.length; i++) {
+      if (i === meNumb) {
+        continue;
+      }
+      if (players[i].isDead()) {
+        continue;
+      }
+      if (enemyLife > players[i].life && players[i].life > 0) {
+        enemyLife = players[i].life;
+        enemy = players[i];
+      }
+    }
+
+    return enemy;
+  }
+
+  moveToEnemy(enemy) {
+    let distance = enemy.position - this.position;
+    this.move(distance);
+  }
+
+  turn(players) {
+    this.checkWeapon();
+    const enemy = this.chooseEnemy(players);
+    if (enemy !== undefined) {
+      this.moveToEnemy(enemy);
+      this.tryAttack(enemy);
+    }
+    else {
+      return console.log(`Победил ${this.name}`);
+    }
   }
 
 }
 
 class Warrior extends Player {
-  constructor(magic, agility, luck) {
-    super();
-    this.life = 120;
-    this.initLife = 120;
-    this.speed = 2;
-    this.attack = 10;
-    this.description = 'Воин';
-    this.weapon = new Sword;
-    this.weaponReserve = [new Knife, new Arm];
-    this.name;
+  constructor(options = {position, name}, magic, agility, luck) {
+    super(magic, agility, luck);
+    const {
+      life = 120,
+      speed = 2,
+      attack = 10,
+      description = 'Воин',
+      weapon = new Sword,
+      weaponReserve = [new Knife, new Arm],
+      position = position,
+      name = name
+    } = options;
+    Object.assign(this, {
+      life,
+      initLife: life,
+      speed,
+      attack,
+      description,
+      weapon,
+      weaponReserve,
+      position,
+      name
+    });
   }
 
   takeDamage(damage) {
@@ -226,15 +517,29 @@ class Warrior extends Player {
 }
 
 class Dwarf extends Warrior {
-  constructor(magic, speed, agility) {
-    super();
-    this.life = 130;
-    this.attack = 15;
-    this.luck = 20;
-    this.description = 'Гном';
-    this.weapon = new Axe;
-    this.name;
-    this.countDamage = 0;
+  constructor(options = {position, name}, magic, speed, agility) {
+    super(options, magic, speed, agility);
+    const {
+      life = 130,
+      attack = 15,
+      luck = 20,
+      description = 'Гном',
+      weapon = new Axe,
+      countDamage = 0,
+      position = position,
+      name = name
+    } = options;
+    Object.assign(this, {
+      life,
+      initLife: life,
+      attack,
+      luck,
+      description,
+      weapon,
+      countDamage,
+      position,
+      name
+    });
   }
 
   takeDamage(damage) {
@@ -245,21 +550,40 @@ class Dwarf extends Warrior {
     }
     else {
       this.life = this.life - endDamage;
+      if (this.life < 0) {
+        this.life = 0;
+      }
     }
   }
 }
 
 class Archer extends Player {
-  constructor(speed, luck) {
-    super();
-    this.life = 80;
-    this.magic = 35;
-    this.attack = 5;
-    this.agility = 10;
-    this.description = 'Лучник';
-    this.weapon = new Bow;
-    this.weaponReserve = [new Knife, new Arm];
-    this.name;
+  constructor(options = {position, name}, speed, luck) {
+    super(speed, luck);
+    const {
+      life = 80,
+      magic = 35,
+      attack = 5,
+      agility = 10,
+      description = 'Лучник',
+      weapon = new Bow,
+      weaponReserve = [new Knife, new Arm],
+      position = position,
+      name = name
+    } = options;
+    Object.assign(this, {
+      life,
+      initLife: life,
+      magic,
+      initMagic: magic,
+      attack,
+      agility,
+      description,
+      weapon,
+      weaponReserve,
+      position,
+      name
+    });
   }
 
   getDamage(distance) {
@@ -274,30 +598,58 @@ class Archer extends Player {
 }
 
 class Crossbowman extends Archer {
-  constructor(magic, speed) {
-    super();
-    this.life = 85;
-    this.attack = 8;
-    this.agility = 20;
-    this.luck = 15;
-    this.description = 'Арбалетчик';
-    this.weapon = new LongBow;
-    this.name;
+  constructor(options = {position, name}, magic, speed) {
+    super(options, magic, speed);
+    const {
+      life = 85,
+      attack = 8,
+      agility = 20,
+      luck = 15,
+      description = 'Арбалетчик',
+      weapon = new LongBow,
+      position = position,
+      name = name
+    } = options;
+    Object.assign(this, {
+      life,
+      attack,
+      agility,
+      luck,
+      description,
+      weapon,
+      position,
+      name
+    });
   }
 }
 
 class Mage extends Player {
-  constructor(speed, luck) {
-    super();
-    this.life = 70;
-    this.magic = 100;
-    this.initMagic = 100;
-    this.attack = 5;
-    this.agility = 8;
-    this.description = 'Маг';
-    this.weapon = new Staff;
-    this.weaponReserve = [new Knife, new Arm];
-    this.name;
+  constructor(options = {position, name}, speed, luck) {
+    super(speed, luck);
+    const {
+      life = 70,
+      magic = 100,
+      attack = 5,
+      agility = 8,
+      description = 'Маг',
+      weapon = new Staff,
+      weaponReserve = [new Knife, new Arm],
+      position = position,
+      name = name
+    } = options;
+    Object.assign(this, {
+      life,
+      initLife: life,
+      magic,
+      initMagic: magic,
+      attack,
+      agility,
+      description,
+      weapon,
+      weaponReserve,
+      position,
+      name
+    });
   }
 
   takeDamage(damage) {
@@ -318,15 +670,28 @@ class Mage extends Player {
 }
 
 class Demiurge extends Mage {
-  constructor(speed, agility) {
-    super();
-    this.life = 80;
-    this.magic = 120;
-    this.attack = 6;
-    this.luck = 12;
-    this.description = 'Демиург';
-    this.weapon = new StormStaff;
-    this.name;
+  constructor(options = {position, name}, speed, agility) {
+    super(options, speed, agility);
+    const {
+      life = 80,
+      magic = 120,
+      attack = 6,
+      luck = 12,
+      description = 'Демиург',
+      weapon = new StormStaff,
+      position = position,
+      name = name
+    } = options;
+    Object.assign(this, {
+      life,
+      magic,
+      attack,
+      luck,
+      description,
+      weapon,
+      position,
+      name
+    });
   }
 
   getDamage(distance) {
@@ -349,156 +714,53 @@ class Demiurge extends Mage {
 
 }
 
-var player = new Warrior();
-player.moveLeft(9);
-console.log(player.position);
-player.moveRight(1);
-console.log(player.position);
-player.moveRight(2);
-console.log(player.position);
-player.move(-2);
-console.log(player.position);
-player.move(-2);
-console.log(player.position);
-player.takeAttack(40);
-console.log(player);
+let players = [
+  // new Player({position: 10, name: 'Игрок 0'}),
+  new Warrior({position: 10, name: 'Игрок 1'}),
+  new Dwarf({position: 55, name: 'Игрок 2'}),
+  new Archer({position: 0, name: 'Игрок 3'}),
+  new Crossbowman({position: 20, name: 'Игрок 4'}),
+  new Mage({position: 25, name: 'Игрок 5'}),
+  new Demiurge({position: 15, name: 'Игрок 6'}),
+  new Warrior({position: 21, name: 'Игрок 7'}),
+  new Warrior({position: 12, name: 'Игрок 8'}),
+];
+
+let winner;
 
 
+play(players);
 
-// const weapon = new Weapon ('Старый меч', 20, 100, 1);
-// const myArm = new Arm ();
-// const myBow = new Bow ();
-// const myLongBow = new LongBow ();
-// const myAxe = new Axe ();
-// const mySword = new Sword ();
-// const myStaff = new Staff ();
-// const myStormStaff = new StormStaff ();
-// console.log(player);
-// const player = new Player ();
-// player.name = 'Иван Демидов';
-// myWarrior.weapon.takeDamage(600);
-// myWarrior.weapon.checkWeapon;
-// const myArcher = new Archer ();
-// const myMage = new Mage ();
+console.log(winner);
+// console.log(players);
 
-// weapon.takeDamage(5);
-// myBow.takeDamage(150);
-// console.log(weapon.durability);
-// console.log(myBow.durability);
-// console.log(myBow.getDamage());
-// weapon.takeDamage(50);
-// console.log(weapon.durability);
-// console.log(weapon.getDamage(), weapon.durability, weapon.isBroken());
-// console.log(myArm);
-// console.log(myBow);
-// console.log(myLongBow);
-// console.log(mySword);
-// console.log(myAxe);
-// console.log(myStaff);
-// console.log(myStormStaff);
-// console.log(player);
-// console.log(player.getLuck());
-// console.log(player.getDamage(1));
-// player.takeDamage(10);
-// console.log(player.life);
-// player.takeDamage(80);
-// console.log(player.life);
-// player.takeDamage(90);
-// console.log(player.life);
-// console.log(player.isDead());
-// console.log(myArcher);
-// console.log(myMage);
+function play(players) {
+  let countStep = 1;
+  while (players.length > 1) {
+    console.log(`Ход ${countStep++}`);
+    console.log('Сводная информация');
+    for (let player of players) {
+      console.log(`${player.description} ${player.name} (pos ${player.position})\: ${player.life}\/${player.magic}`, player.weapon);
+    }
+    for (let player of players) {
+      console.log(`Ходит игрок ${player.name}`);
+      player.turn(players);
+    }
 
-// const myWarrior = new Warrior ();
-// console.log(myWarrior.life, myWarrior.magic);
-// myWarrior.takeDamage(50);
-// console.log(myWarrior.life, myWarrior.magic);
-// myWarrior.takeDamage(20);
-// console.log(myWarrior.life, myWarrior.magic);
-// myWarrior.takeDamage(5);
-// console.log(myWarrior.life, myWarrior.magic);
-// myWarrior.takeDamage(7);
-// console.log(myWarrior.life, myWarrior.magic);
-// myWarrior.takeDamage(5);
-// console.log(myWarrior.life, myWarrior.magic);
-// myWarrior.takeDamage(22);
-// console.log(myWarrior.life, myWarrior.magic);
-// myWarrior.takeDamage(30);
-// console.log(myWarrior.life, myWarrior.magic);
+    for (let player of players) {
+      if (player.isDead()) {
+        console.log(`${player.description} ${player.name} погиб! R.I.P`);
+        console.log(player);
+      }
+    }
 
-// const myMage = new Mage ();
-// console.log(myMage.life, myMage.magic);
-// myMage.takeDamage(50);
-// console.log(myMage.life, myMage.magic);
-// myMage.takeDamage(20);
-// console.log(myMage.life, myMage.magic);
-// myMage.takeDamage(5);
-// console.log(myMage.life, myMage.magic);
-// myMage.takeDamage(7);
-// console.log(myMage.life, myMage.magic);
-// myMage.takeDamage(5);
-// console.log(myMage.life, myMage.magic);
-// myMage.takeDamage(22);
-// console.log(myMage.life, myMage.magic);
-// myMage.takeDamage(30);
-// console.log(myMage.life, myMage.magic);
-
-// const myDwarf = new Dwarf ();
-// myDwarf.countDamage = 11;
-// console.log(myDwarf);
-// myDwarf.takeDamage(10);
-// console.log(myDwarf.countDamage, myDwarf.life, myDwarf.magic);
-// myDwarf.takeDamage(10);
-// console.log(myDwarf.countDamage, myDwarf.life, myDwarf.magic);
-// myDwarf.takeDamage(10);
-// console.log(myDwarf.countDamage, myDwarf.life, myDwarf.magic);
-// myDwarf.takeDamage(10);
-// console.log(myDwarf.countDamage, myDwarf.life, myDwarf.magic);
-// myDwarf.takeDamage(10);
-// console.log(myDwarf.countDamage, myDwarf.life, myDwarf.magic);
-// myDwarf.takeDamage(10);
-// console.log(myDwarf.countDamage, myDwarf.life, myDwarf.magic);
-// myDwarf.takeDamage(10);
-// console.log(myDwarf.countDamage, myDwarf.life, myDwarf.magic);
-
-// const myDemiurge = new Demiurge ();
-// console.log(myDemiurge.getDamage(3));
-// myDemiurge.takeDamage(10);
-// console.log(myDemiurge.life, myDemiurge.magic);
-// myDemiurge.takeDamage(40);
-// // console.log(myDemiurge);
-// myDemiurge.takeDamage(40);
-// // console.log(myDemiurge);
-// myDemiurge.takeDamage(40);
-// console.log(myDemiurge);
-// myDemiurge.weapon.takeDamage(300);
-// myDemiurge.weapon.takeDamage(100);
-// myDemiurge.checkWeapon();
-// console.log(myDemiurge.life, myDemiurge.magic);
-
-// const myDwarf = new Dwarf ();
-// const myCrossbowman = new Crossbowman ();
-// const myDemiurge = new Demiurge ();
-// myWarrior.name = 'Василий Бабушкин';
-// const myArcher = new Archer ();
-// const myMage = new Mage ();
-// console.log(myWarrior);
-// myWarrior.weapon.takeDamage(500)
-// myWarrior.checkWeapon();
-// console.log(myWarrior);
-// myWarrior.weapon.takeDamage(300);
-// myWarrior.takeDamage(100);
-// myWarrior.checkWeapon();
-// myWarrior.weapon.takeDamage(300);
-// myWarrior.checkWeapon();
-// myWarrior.weapon.takeDamage(300);
-// myWarrior.checkWeapon();
-// myWarrior.weapon.takeDamage(300);
-// myWarrior.checkWeapon();
-// console.log(myWarrior);
-// console.log(myArcher);
-// console.log(myArcher.getDamage(1));
-// console.log(myMage);
-// console.log(myDwarf);
-// console.log(myCrossbowman);
-// console.log(myDemiurge);
+    players = players.filter(function(player) {return player.isDead() !== true;});
+  }
+    if (players.length > 0) {
+      winner = players.pop();
+      console.log(`Победитель ${winner.name}`);
+    }
+    else {
+      console.log('Вечная слава павшим героям!');
+    }
+  }
